@@ -1,12 +1,5 @@
-import { authMiddleware } from '../utils/auth.js';
 const { AuthenticationError } = require('apollo-server-express');
-const {
-  createUser,
-  getSingleUser,
-  saveBook,
-  deleteBook,
-  login,
-} = require('../../controllers/user-controller');
+const { authMiddleware, AuthenticationError } = require('../utils/auth');
 
 const resolvers = {
   Mutation: {
