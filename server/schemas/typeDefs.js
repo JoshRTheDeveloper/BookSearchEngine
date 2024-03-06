@@ -1,4 +1,3 @@
-
 const typeDefs = `
   type Book {
     _id: ID!
@@ -42,6 +41,7 @@ const typeDefs = `
   type Query {
     getUser(_id: ID!): User
     me: User
+    getSingleUser: User
   }
 
   type Mutation {

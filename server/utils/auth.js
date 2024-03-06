@@ -1,11 +1,11 @@
 const jwt = require('jsonwebtoken');
 
-// set token secret and expiration date needed.
+// Set token secret and expiration date needed.
 const secret = 'mysecretsshhhhh';
 const expiration = '2h';
 
 module.exports = {
-  // authenticated route function
+  // Authenticated route function
   authMiddleware: function (context) {
     const token = context.headers.authorization;
 
@@ -14,16 +14,15 @@ module.exports = {
     }
 
     try {
-      const { data } = jwt.verify(token, secret, { maxAge: expiration });
+      const { data } = jwt.verify(token, secret, { expiresIn: expiration });
       context.user = data;
-    } catch {
-      console.log('Invalid token');
+    } catch (err) {
+      console.error('Invalid token:', err.message);
       throw new Error('Invalid token!');
     }
   },
   signToken: function ({ username, email, _id }) {
     const payload = { username, email, _id };
-
     return jwt.sign({ data: payload }, secret, { expiresIn: expiration });
   },
 };

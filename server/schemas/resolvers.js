@@ -1,4 +1,4 @@
-const { AuthenticationError } = require('apollo-server-express');
+
 const { authMiddleware, AuthenticationError } = require('../utils/auth');
 
 const resolvers = {

@@ -1,5 +1,6 @@
 const express = require('express');
-const { ApolloServer } = require('@apollo/server-express'); // Corrected import
+const { ApolloServer } = require('apollo-server-express'); // Fix import statement
+
 const path = require('path');
 const { authMiddleware } = require('./utils/auth');
 
@@ -11,7 +12,7 @@ const app = express();
 const server = new ApolloServer({
   typeDefs,
   resolvers,
-  context: authMiddleware, 
+  context: ({ req }) => authMiddleware(req),
 });
 
 const startApolloServer = async () => {
@@ -20,7 +21,7 @@ const startApolloServer = async () => {
   app.use(express.urlencoded({ extended: false }));
   app.use(express.json());
 
-  server.applyMiddleware({ app, path: '/graphql' }); 
+  server.applyMiddleware({ app, path: '/graphql' });
 
   if (process.env.NODE_ENV === 'production') {
     app.use(express.static(path.join(__dirname, '../client/dist')));
